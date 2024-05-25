@@ -72,6 +72,7 @@ $ curl -s https://api.restful-api.dev/objects | prettify_json -
 
 ```sh
 $ prettify_json -f sample.json
+
 {
   "name": "John Doe",
   "age": 30,
@@ -83,6 +84,7 @@ $ prettify_json -f sample.json
 
 ```sh
 $ prettify_json -s '{"name": "John Doe", "age": 30, "city": "New York"}'
+
 {
   "name": "John Doe",
   "age": 30,
@@ -94,6 +96,7 @@ $ prettify_json -s '{"name": "John Doe", "age": 30, "city": "New York"}'
 
 ```sh
 $ curl -s https://api.restful-api.dev/objects | prettify_json -
+
 [
   {
     "id": 1,
