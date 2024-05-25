@@ -1,34 +1,130 @@
 # PrettifyJson
 
-TODO: Delete this and the text below, and describe your gem
+`prettify_json` is a powerful command-line tool designed to enhance the readability of JSON data. Whether you're working with JSON files, strings, or data streamed from the web, `prettify_json` will format it in a clean, colorful, and human-friendly way.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/prettify_json`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Features
+
+- **Readability**: Formats JSON data for easier reading.
+- **Flexibility**: Accepts input from files, strings, or standard input.
+- **Colorful Output**: Adds colors to the JSON keys, strings, numbers, and more for better visual distinction.
+
+## Dependencies
+
+- Ruby (version 2.7.0 or higher)
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Add this line to your application's Gemfile:
 
-Install the gem and add to the application's Gemfile by executing:
+```ruby
+gem 'prettify_json'
+```
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+And then execute:
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+```sh
+$ bundle install
+```
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+Or install it yourself as:
+
+```sh
+$ gem install prettify_json
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+### From a File
+
+Prettify JSON data from a file:
+
+```sh
+$ prettify_json -f path/to/your/file.json
+```
+
+### From a String
+
+Prettify JSON data from a string:
+
+```sh
+$ prettify_json -s '{"key": "value"}'
+```
+
+### From Standard Input
+
+Prettify JSON data from standard input:
+
+```sh
+$ echo '{"key": "value"}' | prettify_json -
+```
+
+### From a Web API
+
+Fetch and prettify JSON data from a web API:
+
+```sh
+$ curl -s https://api.restful-api.dev/objects | prettify_json -
+```
+
+## Examples
+
+### Example 1: Prettifying a JSON File
+
+```sh
+$ prettify_json -f sample.json
+{
+  "name": "John Doe",
+  "age": 30,
+  "city": "New York"
+}
+```
+
+### Example 2: Prettifying a JSON String
+
+```sh
+$ prettify_json -s '{"name": "John Doe", "age": 30, "city": "New York"}'
+{
+  "name": "John Doe",
+  "age": 30,
+  "city": "New York"
+}
+```
+
+### Example 3: Prettifying JSON from a REST API
+
+```sh
+$ curl -s https://api.restful-api.dev/objects | prettify_json -
+[
+  {
+    "id": 1,
+    "name": "Object 1",
+    "data": {
+      "value": "Sample data"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Object 2",
+    "data": {
+      "value": "More sample data"
+    }
+  }
+]
+```
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `lib/prettify_json/version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/prettify_json. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/prettify_json/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/talaatmagdyx/prettify_json. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/talaatmagdyx/prettify_json/blob/master/CODE_OF_CONDUCT.md).
+
+## Reporting Bugs / Feature Requests
+
+If you encounter any bugs or have suggestions for new features, please [open an issue on GitHub](https://github.com/talaatmagdyx/prettify_json/issues). Your feedback is valuable and helps improve the quality of the gem.
 
 ## License
 
@@ -36,4 +132,8 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the PrettifyJson project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/prettify_json/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the PrettifyJson project's codebases, issue trackers, chat rooms, and mailing lists is expected to follow the [code of conduct](https://github.com/talaatmagdyx/prettify_json/blob/master/CODE_OF_CONDUCT.md).
+
+---
+
+This README provides a comprehensive guide to using your `prettify_json` gem, with detailed usage examples and instructions for installation, development, and contribution.
