@@ -1,4 +1,27 @@
 module PrettifyJson
-  VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+  class JsonPrettifier
+    attr_reader json_string: String
+
+    def initialize: (String json_string) -> void
+
+    def colorize_json: (String json_string) -> String
+
+    private def colorize_match: (String match) -> String
+
+    def pretty_print: () -> String
+  end
+
+  class CLI
+    def self.parse_options: () -> Hash[Symbol, String]
+
+    def self.option_parser: (Hash[Symbol, String] options) -> OptionParser
+
+    private def self.add_file_option: (OptionParser opts, Hash[Symbol, String] options) -> void
+
+    private def self.add_string_option: (OptionParser opts, Hash[Symbol, String] options) -> void
+
+    private def self.add_help_option: (OptionParser opts) -> void
+
+    def self.run: () -> void
+  end
 end

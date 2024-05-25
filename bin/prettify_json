@@ -5,41 +5,63 @@ require 'optparse'
 
 # Display help message for usage instructions
 def display_help
-  puts <<-HELP
-Usage:
-  prettify_json [options]
-
-[Options]
-  -f, --file FILE          Input JSON file
-  -s, --string JSON        Input JSON string
-  -                        Read multiple lines from standard input (no single quotes needed)
-
-You may specify a file path or a JSON string to be parsed and formatted.
-IMPORTANT: make sure to surround your JSON string with single quotes to prevent the shell from splitting it by its own.
-HELP
+  puts help_message
   exit 0
+end
+
+# Help message content
+def help_message
+  <<~HELP
+    Usage:
+      prettify_json [options]
+
+    [Options]
+      -f, --file FILE          Input JSON file
+      -s, --string JSON        Input JSON string
+      -                        Read multiple lines from standard input (no single quotes needed)
+
+    You may specify a file path or a JSON string to be parsed and formatted.
+    IMPORTANT: make sure to surround your JSON string with single quotes to prevent the shell from splitting it by its own.
+  HELP
 end
 
 # Parse command line options and arguments
 def parse_options
   options = {}
+  opts = option_parser(options)
+  opts.parse!
+  options
+end
+
+# OptionParser configuration
+def option_parser(options)
   OptionParser.new do |opts|
     opts.banner = 'Usage: prettify_json [options]'
+    add_file_option(opts, options)
+    add_string_option(opts, options)
+    add_help_option(opts)
+  end
+end
 
-    opts.on('-f', '--file FILE', 'Input JSON file') do |file|
-      options[:file] = file
-    end
+# Add file option to OptionParser
+def add_file_option(opts, options)
+  opts.on('-f', '--file FILE', 'Input JSON file') do |file|
+    options[:file] = file
+  end
+end
 
-    opts.on('-s', '--string JSON', 'Input JSON string') do |json_string|
-      options[:string] = json_string
-    end
+# Add string option to OptionParser
+def add_string_option(opts, options)
+  opts.on('-s', '--string JSON', 'Input JSON string') do |json_string|
+    options[:string] = json_string
+  end
+end
 
-    opts.on('-h', '--help', 'Show this help message') do
-      display_help
-    end
-  end.parse!
-
-  options
+# Add help option to OptionParser
+def add_help_option(opts)
+  opts.on('-h', '--help', 'Show this help message') do
+    display_help
+  end
 end
 
 # Read JSON input from the specified source
@@ -49,7 +71,7 @@ def read_input(options)
   elsif options[:string]
     options[:string]
   elsif ARGV.include?('-')
-    STDIN.read
+    $stdin.read
   else
     display_help
   end
@@ -66,9 +88,7 @@ end
 def main
   options = parse_options
 
-  if options.empty? && ARGV.empty?
-    display_help
-  end
+  display_help if options.empty? && ARGV.empty?
 
   input = read_input(options)
   pretty_print_json(input)
