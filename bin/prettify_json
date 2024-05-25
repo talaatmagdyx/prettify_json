@@ -1,0 +1,78 @@
+#!/usr/bin/env ruby
+
+require 'prettify_json'
+require 'optparse'
+
+# Display help message for usage instructions
+def display_help
+  puts <<-HELP
+Usage:
+  prettify_json [options]
+
+[Options]
+  -f, --file FILE          Input JSON file
+  -s, --string JSON        Input JSON string
+  -                        Read multiple lines from standard input (no single quotes needed)
+
+You may specify a file path or a JSON string to be parsed and formatted.
+IMPORTANT: make sure to surround your JSON string with single quotes to prevent the shell from splitting it by its own.
+HELP
+  exit 0
+end
+
+# Parse command line options and arguments
+def parse_options
+  options = {}
+  OptionParser.new do |opts|
+    opts.banner = 'Usage: prettify_json [options]'
+
+    opts.on('-f', '--file FILE', 'Input JSON file') do |file|
+      options[:file] = file
+    end
+
+    opts.on('-s', '--string JSON', 'Input JSON string') do |json_string|
+      options[:string] = json_string
+    end
+
+    opts.on('-h', '--help', 'Show this help message') do
+      display_help
+    end
+  end.parse!
+
+  options
+end
+
+# Read JSON input from the specified source
+def read_input(options)
+  if options[:file]
+    File.read(options[:file])
+  elsif options[:string]
+    options[:string]
+  elsif ARGV.include?('-')
+    STDIN.read
+  else
+    display_help
+  end
+end
+
+# Pretty print JSON input
+def pretty_print_json(input)
+  puts PrettifyJson::JsonPrettifier.new(input).pretty_print
+rescue JSON::ParserError => e
+  puts "Invalid JSON: #{e.message}"
+end
+
+# Main execution logic
+def main
+  options = parse_options
+
+  if options.empty? && ARGV.empty?
+    display_help
+  end
+
+  input = read_input(options)
+  pretty_print_json(input)
+end
+
+# Execute main method
+main
