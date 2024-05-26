@@ -34,6 +34,25 @@ $ gem install prettify_json
 
 ## Usage
 
+### Ruby Cdoe
+```ruby
+require 'prettify_json'
+
+# Sample JSON string
+json_string = '{"name": "John Doe", "age": 30, "is_student": false, "address": null, "scores": [95, 85, 92.5]}'
+
+# Create an instance of JsonPrettifier
+prettifier = PrettifyJson::JsonPrettifier.new(json_string)
+
+# Get the prettified JSON
+prettified_json = prettifier.pretty_print
+
+# Output the prettified JSON
+puts prettified_json
+
+```
+![prettify_json](images/prettify_json.png "prettify_json")
+
 ### From a File
 
 Prettify JSON data from a file:
