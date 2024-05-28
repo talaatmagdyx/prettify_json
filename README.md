@@ -34,7 +34,7 @@ $ gem install prettify_json
 
 ## Usage
 
-### Ruby Cdoe
+### Ruby Code
 ```ruby
 require 'prettify_json'
 
